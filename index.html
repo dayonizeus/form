@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="form" id="app">
+        <transition name="formHide">
+            <form @submit="checkForm" v-show="form">
+                <h2>Атрибуты формы</h2>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label form__necessary">Фамилия</label>
+                        <input type="text" v-model="surname">
+                    </div>
+                    <div class="form__messages">
+                        <div class="form__condition">{{checkSurname}}</div>
+                        <div class="form__check" v-if="!checkSurname">{{errors.surname}}</div>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label form__necessary">Имя</label>
+                        <input type="text" v-model="name">
+                    </div>
+                    <div class="form__messages">
+                        <div class="form__condition">{{checkName}}</div>
+                        <div class="form__check" v-if="!checkName">{{errors.name}}</div>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label">Отчество</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label form__necessary">Дата рождения</label>
+                        <input type="date" v-model="birthDate">
+                    </div>
+                    <div class="form__messages">
+                        <div class="form__condition">{{checkBirthDate}}</div>
+                        <div class="form__check" v-if="!checkBirthDate">{{errors.birthDate}}</div>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label form__necessary">Номер телефона</label>
+                        <input type="tel" v-model="phone">
+                    </div>
+                    <div class="form__messages">
+                        <div class="form__condition">{{checkPhone}}</div>
+                        <div class="form__check" v-if="!checkPhone">{{errors.phone}}</div>
+                    </div>
+                </div>
+                <div class="form__field form__gender">
+                    <div class="form__fields">
+                        <label class="form__label">Пол</label>
+                        <div class="form__radio">
+                            <div class="form__radio-option">
+                                <input type="radio" value="male" id="male" name="gender">
+                                <label for="male">Мальчик</label>
+                            </div>
+                            <div class="form__radio-option">
+                                <input type="radio" value="female" id="female" name="gender">
+                                <label for="female">Девочка</label>
+                            </div>
+                            <div class="form__radio-option">
+                                <input type="radio" value="other" id="other" name="gender">
+                                <label for="other">Не понятненько</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label form__necessary">Группа клиентов</label>
+                        <select class="form__multi" multiple="multiple" v-model="group">
+                            <option>VIP</option>
+                            <option>Проблемные</option>
+                            <option>ОМС</option>
+                        </select>
+                    </div>
+                    <div class="form__messages">
+                        <div class="form__condition">{{checkGroup}}</div>
+                        <div class="form__check" v-if="!checkGroup">{{errors.group}}</div>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label">Лечащий врач</label>
+                        <select>
+                            <option>Выбрать</option>
+                            <option>Иванов</option>
+                            <option>Захаров</option>
+                            <option>Чернышева</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label" for="sms">Не отправлять СМС</label>
+                        <input type="checkbox" id="sms">
+                    </div>
+                </div>
+                <h2>Адрес</h2>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label">Индекс</label>
+                        <input type="text" v-model="zip">
+                    </div>
+                    <div class="form__messages">
+                        <div class="form__condition">{{checkZip}}</div>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label">Страна</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label">Область</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label form__necessary">Город</label>
+                        <input type="text" v-model="city">
+                    </div>
+                    <div class="form__messages">
+                        <div class="form__condition">{{checkCity}}</div>
+                        <div class="form__check" v-if="!checkCity">{{errors.city}}</div>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label">Улица</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label">Дом</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <h2 class="form__doc-title">Паспорт</h2>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label form__necessary">Тип документа</label>
+                        <select v-model="document">
+                            <option>Выбрать</option>
+                            <option>Паспорт</option>
+                            <option>Свидетельство о рождении</option>
+                            <option>Водительское удостоверение</option>
+                        </select>
+                    </div>
+                    <div class="form__messages">
+                        <div class="form__condition">{{checkDocument}}</div>
+                        <div class="form__check" v-if="!checkDocument">{{errors.document}}</div>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label">Серия</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label">Номер</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label">Кем выдан</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="form__field">
+                    <div class="form__fields">
+                        <label class="form__label form__necessary">Дата выдачи</label>
+                        <input type="date" v-model="documentDate">
+                    </div>
+                    <div class="form__messages">
+                        <div class="form__condition">{{checkDocumentDate}}</div>
+                        <div class="form__check" v-if="!checkDocumentDate">{{errors.documentDate}}</div>
+                    </div>
+                </div>
+                <div class="form__message" v-show="isNecessary">
+                    Вы не заполнили все обязательные поля
+                </div>
+                <input class="form__submit" type="submit" value="Проверить">
+            </form>
+        </transition>
+        <div class="form__successfull" v-show="successfull">
+            Новый клиент успешно создан
+        </div>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>
